@@ -9,19 +9,17 @@ class PdfCreator {
     final fontData = await rootBundle.load('assets/ShipporiMincho-Regular.ttf');
     final font = Font.ttf(fontData);
     // Googleフォントを取得して埋め込むことも可能
-    // final font = await PdfGoogleFonts.shipporiMinchoRegular();
+    // final Font font = await PdfGoogleFonts.shipporiMinchoRegular();
 
     final pdf = Document(author: 'Me');
 
     // 表紙
     final cover = Page(
-      // pageTheme設定の場合は以下2つ設定するとエラー
-      // theme: ThemeData.withFont(base: font),
-      // pageFormat: format,
+      // pageThemeと「build以外のプロパティ」を同時に設定するとエラー
       pageTheme: PageTheme(
         theme: ThemeData.withFont(base: font),
         pageFormat: PdfPageFormat.a4,
-        orientation: PageOrientation.landscape,
+        orientation: PageOrientation.portrait,
         buildBackground: (context) => Opacity(
           opacity: 0.3,
           child: FlutterLogo(),
@@ -47,9 +45,11 @@ class PdfCreator {
 
     // 本文
     final content = MultiPage(
-      theme: ThemeData.withFont(base: font),
-      pageFormat: PdfPageFormat.a5,
-      orientation: PageOrientation.portrait,
+      pageTheme: PageTheme(
+        theme: ThemeData.withFont(base: font),
+        pageFormat: PdfPageFormat.a4,
+        orientation: PageOrientation.portrait,
+      ),
       header: (context) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 30),

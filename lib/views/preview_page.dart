@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pdf_test/services/pdf_creator.dart';
 import 'package:printing/printing.dart';
 
+import '../services/pdf_creator.dart';
 import '../services/save_helper/save_helper.dart';
 
 class PreviewPage extends StatelessWidget {
